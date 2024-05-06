@@ -1,0 +1,177 @@
+﻿
+.required {
+    color: red;
+}
+
+.statuserror {
+    color: red;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.testbox {
+    width: 60%;
+    margin: auto;
+    padding: 20px;
+    background-color: aliceblue;
+}
+
+.banner {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+    .banner h1 {
+        font-size: 24px;
+    }
+
+.item {
+    margin-bottom: 20px;
+}
+
+    .item p {
+        margin: 0;
+        padding-bottom: 5px;
+    }
+
+    .item input[type="text"],
+    .item input[type="email"],
+    .item input[type="date"],
+    .item input[type="radio"],
+    .item input[type="checkbox"],
+    .item textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .item textarea {
+        resize: vertical;
+    }
+
+.question {
+    margin-bottom: 20px;
+}
+
+    .question p {
+        margin: 0;
+    }
+
+.question-answer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+    .question-answer div {
+        flex: 1;
+    }
+
+.checkbox span,
+.question-answer {
+    display: flex;
+    flex-direction: column; /* Change flex direction to column */
+}
+
+    .question-answer div {
+        display: block;
+        margin-bottom: 10px; /* Adjusts spacing between each checkbox for better visibility */
+    }
+
+.checkbox label {
+    padding-left: 5px; /* Adjusts spacing between checkbox and label */
+}
+
+.radio span {
+    padding-left: 5px;
+}
+
+.btn-block button[type="submit"] {
+    width: 100%;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+    .btn-block button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+.Iconcolor {
+    color: red;
+}
+
+#FirstnameErrorIcons {
+    display: none;
+}
+
+#LastnameErrorIcons {
+    display: none;
+}
+
+#emailErrorIcons {
+    display: none;
+}
+
+#phoneNumberErrorIcon {
+    display: none;
+}
+
+#statuserroricon {
+    display: none;
+}
+
+
+
+#dateerroricon {
+    display: none;
+}
+
+#howmanypeopleErroricon {
+    display: none;
+}
+
+#Whichtoursoreventserroricon {
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+body {
+    background-image: url('../img/1504164994-tour-booking-service.jpg');
+    /*background-image: url('../img/tourbooking.png');*/
+    /*background-size: 100% 100%; */
+    background-position: left top, center top, right top;
+}
+
+
+
+/*.question-answer div {
+    display: block;
+    margin-bottom: 10px;*/ /* Adjusts spacing between each checkbox/radio button for better visibility */
+/*}*/
+
+/* Optional: Ensure labels are also treated as block elements, though this should be unnecessary with the above */
+/*.checkbox label, .radio label {
+    display: block;
+}
+
+.question-answer div {
+    display: block !important;
+    margin-bottom: 10px !important;
+}*/

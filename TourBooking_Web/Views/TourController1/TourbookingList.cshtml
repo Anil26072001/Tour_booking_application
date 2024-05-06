@@ -1,0 +1,134 @@
+﻿@* @model IEnumerable<TourBooking_Web.Models.TourBookingviewmodel> *@
+
+
+   @* @model IEnumerable<TourBooking_Web.Models.DTO.TourbookingDto>  *@
+
+@* 
+<h1>List of Tour Booking Applications</h1>
+<script src="~/js/tour ex/tourex.js"></script>
+
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+
+        <tr>
+            <th>TourBookId</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>When areyouplanning to visit?</th>
+            <th>How manypeople are your group?</th>
+            @* <th>Whichtoursorevents</th> *@
+            @* <th>bestwaytocontact</th> *@
+            @* <th>besttimeofday</th> *@
+            @*             <th>AnythingElse</th>
+            <th>HowDidYouHear</th>  *@
+            @* <th>country</th> *@
+           @*  <th>View</th>
+            <th>Update</th>
+            <th>Delete</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var tourBooking in Model)
+            {
+                <tr>
+                    <td>@tourBooking.TourBookingId</td>
+                    <td>@tourBooking.FirstName</td>
+                    <td>@tourBooking.LastName</td>
+                    <td>@tourBooking.Email</td>
+                    <td>@tourBooking.Phone</td>
+                    <td>@tourBooking.TimeofIncident</td>
+                    <td>@tourBooking.Howmanypeo</td>
+                    @* <td>@tourBooking.Whichtoursorevents</td> *@
+                    @*  <td>@tourBooking.bestwaytocontact</td>  *@
+                    @* <td>@tourBooking.besttimeofday</td> *@
+                    @*  <td>@tourBooking.AnythingElse</td>
+                    <td>@tourBooking.HowDidYouHear</td>  *@
+                    @* <td>@tourBooking.Country</td> *@
+                    @* <td>@tourBooking.City</td>   *@
+
+
+
+
+                    @* <td> @Html.ActionLink("View", "DisplayView", new { id = tourBooking.TourBookingId, mode = "View" }) </td>
+
+                    <td> @Html.ActionLink("Update", "Update", new { id = tourBooking.TourBookingId, mode = "Update" }, new { @class = "update-details", data_id = tourBooking.TourBookingId}) </td>
+
+                    <td> @Html.ActionLink("Delete", "Delete", new { id = tourBooking.TourBookingId, mode = "Delete" }) </td>
+ *@
+@* 
+                  
+                </tr>
+            }
+        }
+        else
+        {
+            <p>No registrations found.</p>
+        }
+
+    </tbody>
+</table>
+ *@
+
+
+
+
+
+
+
+
+
+
+<h1>List of Tour Booking Applications</h1>
+<html>
+<head>
+
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/tour ex/tourex.js"></script>
+
+</head>
+<body>
+    <table class="table" border="1" align="left">
+        <thead>
+            <tr>
+                
+                <th>TourBookingId</th>
+                <th>First name</th>
+                <th>last name</th>
+                <th>email</th>
+
+                <th>Phone Number</th>
+                <th>TimeofIncident</th>
+                <th>Howmanypeople</th>
+                <th>besttimeofday</th>
+
+                <th>View</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+
+          
+        </tbody>
+
+    </table>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
