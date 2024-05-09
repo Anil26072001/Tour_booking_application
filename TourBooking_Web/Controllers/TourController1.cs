@@ -6,36 +6,52 @@ using Newtonsoft.Json;
 using System.Text;
 using TourBooking_Web.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace TourBooking_Web.Controllers
 {
     public class TourController1 : Controller
     {
 
-        private readonly IHttpClientFactory httpClientFactory;
         private readonly HttpClient _client;
-        Uri baseaddress = new Uri("https://localhost:7110/api");
-        public TourController1(IHttpClientFactory httpClientFactory)
+        private readonly IConfiguration _configuration;
+        private readonly IHttpClientFactory httpClientFactory;
+        public TourController1(HttpClient client, IConfiguration configuration, IHttpClientFactory httpClientFactory)
         {
             this.httpClientFactory = httpClientFactory;
-            _client = new HttpClient();
-            _client.BaseAddress = baseaddress;
+            _client = client;
+            _configuration = configuration;
+
         }
 
+
+
+        //private readonly IHttpClientFactory httpClientFactory;
+        //private readonly HttpClient _client;
+
+        //Uri baseaddress = new Uri("https://localhost:7110/api");
+
+        //private readonly IConfiguration _configuration;
+
+        //public TourController1(IHttpClientFactory httpClientFactory)
+        //{
+        //    this.httpClientFactory = httpClientFactory;
+        //    _client = new HttpClient();
+        //    //_configuration = configuration;
+        //    _client.BaseAddress = baseaddress;
+        //}
+
+        //list page
         public async Task<IActionResult> TourbookingList()
         {
             try
             {
-                var client = httpClientFactory.CreateClient();
-                var httpResponseMessage = await client.GetAsync("https://localhost:7110/api/TourBookingDetails/GetTourbook");
-                httpResponseMessage.EnsureSuccessStatusCode();
-                var StringResponseBody = await httpResponseMessage.Content.ReadAsStringAsync();
+                var baseurl = _configuration["Appsettings:BaseUrl"];
+                ViewBag.hostname=baseurl;
+                
+                return View();
 
-                var list = JsonConvert.DeserializeObject<List<TourbookingDto>>(StringResponseBody);
-
-                View(list);
-
-                ViewBag.Response = StringResponseBody;
+                
             }
             catch (Exception ex)
             {
@@ -45,66 +61,45 @@ namespace TourBooking_Web.Controllers
             return View();
         }
         [HttpGet]
+        //post form
         public async Task<IActionResult> PostFormDetails(string mode = "submit")
         {
 
-            HttpResponseMessage response = await _client.GetAsync(baseaddress + "/TourBookingDetails/Countries");
-            if (response.IsSuccessStatusCode)
-            {
-                string responseData = await response.Content.ReadAsStringAsync();
-                List<Country> countryList = JsonConvert.DeserializeObject<List<Country>>(responseData);
-                ViewBag.ListCountry = countryList;
-            }
+      
+            var baseurl = _configuration["Appsettings:BaseUrl"];
+            ViewBag.hostname = baseurl;
+
             ViewBag.Mode = mode;
             return View();
         }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<City>>> GetCityDropdownList(int CountryId)
-        {
-            HttpResponseMessage httpResponse = await _client.GetAsync($"{baseaddress}/TourBookingDetails/Cities/{CountryId}");
-
-            if (httpResponse.IsSuccessStatusCode)
-            {
-                string responsedata = await httpResponse.Content.ReadAsStringAsync();
-                List<City> citylist = JsonConvert.DeserializeObject<List<City>>(responsedata);
-                return citylist;
-            }
-            return null;
-
-        }
+       
 
         [HttpPost]
         public IActionResult PostFormDetails(TourBookingviewmodel model)
         {
             try
             {
-                string data = JsonConvert.SerializeObject(model);
-                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/TourBookingDetails/PostTourBooking", content).Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    TempData["SuccessMessage"] = "tourbookingDetails Added successfully:";
-                    return RedirectToAction("TourbookingList");
-                }
                 return View();
+
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                TempData["ErrorMessage"] = ex.Message;
-                return View();
+
+                throw;
             }
+            
+                
+            
         }
+
         public IActionResult DisplayView(int id)
         {
             try
             {
+                var baseurl = _configuration["Appsettings:BaseUrl"];
+                ViewBag.hostname = baseurl;
 
-
-
-
-
-               ViewBag.Id = id;
+                ViewBag.Id = id;
 
                 return View();
 
@@ -120,6 +115,8 @@ namespace TourBooking_Web.Controllers
         {
             try
             {
+                var baseurl = _configuration["Appsettings:BaseUrl"];
+                ViewBag.hostname = baseurl;
 
                 ViewBag.Id = id;
 
@@ -135,6 +132,9 @@ namespace TourBooking_Web.Controllers
         [HttpPost]
         public IActionResult Update(TourBookingviewmodel model)
         {
+
+
+
            return View();
         }
         
@@ -144,6 +144,7 @@ namespace TourBooking_Web.Controllers
             HttpResponseMessage responce = _client.DeleteAsync(_client.BaseAddress + "/TourBookingDetails/DeleteTourbook/" + id).Result;
 
             return RedirectToAction("TourbookingList");
+
         }
     }
 }

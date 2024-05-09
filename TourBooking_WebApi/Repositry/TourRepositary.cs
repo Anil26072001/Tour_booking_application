@@ -63,7 +63,7 @@ namespace TourBooking_WebApi.Repositry
 
         }
 
-        public  async Task<int> Delete(int id)
+        public async Task<int> Delete(int id )
       
         {
             int i = 0;
@@ -71,9 +71,9 @@ namespace TourBooking_WebApi.Repositry
 
             if (deleteid != null)
             {
-                    deleteid.IsActive = false;
-                    i = await _context.SaveChangesAsync();
-                    
+                 deleteid.IsActive = false;
+                i = await _context.SaveChangesAsync();                
+
             }
             return i;
         }
@@ -81,30 +81,47 @@ namespace TourBooking_WebApi.Repositry
 
         public int GetAllUpdate(int id, TourbookingAddDto tourbook)
         {
-            //var update = _context.TourBookings.Where(u =>u.TourBookingId==id).First();
-            var update = _context.TourBookings.FirstOrDefault(u => u.TourBookingId == id);
+            try
+            {
+                //var update = _context.TourBookings.Where(u =>u.TourBookingId==id).First();
+                var update = _context.TourBookings.FirstOrDefault(u => u.TourBookingId == id);
 
 
-            if (update != null)
+                if (update != null)
+                {
+
+                    update.FirstName = tourbook.FirstName;
+                    update.LastName = tourbook.LastName;
+                    update.Email = tourbook.Email;
+                    update.Phone = tourbook.Phone;
+                    update.TimeofIncident = tourbook.TimeofIncident;
+                    update.Howmanypeople = tourbook.Howmanypeople;
+                    update.Whichtoursorevents = tourbook.Whichtoursorevents;
+                    update.bestwaytocontact = tourbook.bestwaytocontact;
+                    update.besttimeofday = tourbook.besttimeofday;
+                    update.AnythingElse = tourbook.AnythingElse;
+                    update.HowDidYouHear = tourbook.HowDidYouHear;
+                    update.CityId = tourbook.CityId;
+                    update.CountryId = tourbook.CountryId;
+
+
+                    int success = _context.SaveChanges();
+                    return success;
+                }
+
+                return 0;
+
+
+
+            }
+            catch (Exception)
             {
 
-                update.FirstName = tourbook.FirstName;
-                update.LastName = tourbook.LastName;
-                update.Email = tourbook.Email;
-                update.Phone = tourbook.Phone;
-                update.TimeofIncident = tourbook.TimeofIncident;
-                update.Howmanypeople = tourbook.Howmanypeople;
-                update.Whichtoursorevents = tourbook.Whichtoursorevents;
-                update.bestwaytocontact = tourbook.bestwaytocontact;
-                update.besttimeofday = tourbook.besttimeofday;
-                update.AnythingElse = tourbook.AnythingElse;
-                update.HowDidYouHear = tourbook.HowDidYouHear;
+                throw;
             }
-            _context.SaveChanges();
-            int success = _context.SaveChanges();
-            return success;
-        }
 
+
+        }
 
         public async Task<ActionResult<TourBooking>> GetDetailsbyId(int? id)
         {
@@ -131,13 +148,11 @@ namespace TourBooking_WebApi.Repositry
             }
         }
 
-
-
         public async Task<String> Getexistingcity(int id)
         {
             try
             {
-                var existingdetails = _context.Cities.FirstOrDefault(i => i.CityId == id);
+                var existingdetails = _context.TourBookings.FirstOrDefault(i => i.TourBookingId == id);
                 if (existingdetails != null)
                 {
                     var cityname = await _context.Cities.Where(x => x.CityId == existingdetails.CityId).Select(i => i.CityName).FirstOrDefaultAsync();
@@ -150,6 +165,27 @@ namespace TourBooking_WebApi.Repositry
                 throw;
             }
         }
+        public async Task<String> GetexistingCountry(int id)
+        {
+            try
+            {
+                var existingdetails = _context.TourBookings.FirstOrDefault(i => i.TourBookingId == id);
+                if (existingdetails != null)
+                {
+                    var countryname = await _context.Countries.Where(x => x.CountryId == existingdetails.CountryId).Select(i => i.CountryName).FirstOrDefaultAsync();
+                    return countryname;
+                }
+                return "";
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
+        }
+
 
 
 

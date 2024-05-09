@@ -107,10 +107,12 @@ body {
     }
 
 .Iconcolor {
+    position:absolute;
     color: red;
 }
 
 #FirstnameErrorIcons {
+
     display: none;
 }
 
@@ -126,8 +128,26 @@ body {
     display: none;
 }
 
+
+
 #statuserroricon {
     display: none;
+}
+#cityErrorIcon{
+    display:none;
+}
+
+#CityErrorIcon{
+   display:none;
+}
+#countryErrorIcon{
+    display:none;
+}
+#serroricon{
+    display:none;
+}
+#serroricon{
+    display:none;
 }
 
 
@@ -144,8 +164,11 @@ body {
     display: none;
 }
 
-
-
+#serroricon {
+    position: relative;
+    left: 236px;
+    top: -23px;
+}
 
 
 

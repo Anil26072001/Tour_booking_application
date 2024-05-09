@@ -88,7 +88,7 @@
         <div class="item col-sm-12">
             <div class="country-item">
                 <p>Country:</p>
-                <select name="countryDropdown" id="country" class="form-control" >
+                <select name="countryDropdown" id="country" disabled readonly class="form-control" >
 
                     <span id="countryError" class="invalid-feedback"></span>
                     <span id="CountryErrorIcon" class="material-icons material-icons-outlined Iconcolor">error_outline</span>
@@ -193,5 +193,7 @@
                 </div>
 
                <script src="~/js/tour ex/displayview.js"></script>
+
+                <div id="base" data-base="@ViewBag.hostname"></div>
 </body>
 </html>

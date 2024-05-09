@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.OData.Routing.Controllers;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TourBooking_WebApi.Data;
 using TourBooking_WebApi.Models;
 using TourBooking_WebApi.Models.DTO;
@@ -26,23 +27,40 @@ namespace TourBooking_WebApi.Controllers
 
         }
 
-        [EnableQuery]
-        [HttpGet]
-        [Route("api/TourBookingDetails/GetTourbook")]
-        public async Task<ActionResult<IEnumerable<TourBooking>>> GetTourbook()
-        {
-            try
-            {
-                if (_tourRepositary == null) return NotFound();
+        //[EnableQuery]
+        //[HttpGet]
+        //[Route("api/TourBookingDetails/GetTourbook")]
+        //public async Task<ActionResult<IEnumerable<TourBooking>>> GetTourbook()
+        //{
+        //    try
+        //    {
+        //        if (_tourRepositary == null) return NotFound();
+        //        var list = await _tourRepositary.GetAllTourbook();
+        //        return Ok(list);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //}
 
-                var list = await _tourRepositary.GetAllTourbook();
-                return Ok(list);
+        [HttpGet,Route("api/TourBookingDetails/GetTourbook")]
+        public IActionResult GetallDetails(ODataQueryOptions<TourBooking> options)
+        { 
+            try
+            {   
+                // var query = _db.TourBookings.AsQueryable();
+                var query = _db.TourBookings.Where(tb => tb.IsActive == true).AsQueryable();
+                var results = options.ApplyTo(query);
+                return Ok(results);
             }
             catch (Exception)
             {
                 throw;
             }
         }
+
+
 
 
         [HttpGet]
@@ -56,8 +74,7 @@ namespace TourBooking_WebApi.Controllers
                     return NotFound();
                 }
 
-                var details = await _tourRepositary.GetDetailsbyId(id)
-;
+                var details = await _tourRepositary.GetDetailsbyId(id);
                 return details;
             }
             catch (Exception)
@@ -109,7 +126,7 @@ namespace TourBooking_WebApi.Controllers
 
         [HttpPut]
         [Route("api/TourBookingDetails/PutTourBook/{id}")]
-        public async Task<ActionResult<TourBooking>> PutUpdateTourBook(int id, TourbookingAddDto details)
+        public async Task<ActionResult<int>> PutUpdateTourBook(int id, TourbookingAddDto details)
         {
             try
             {
@@ -123,9 +140,10 @@ namespace TourBooking_WebApi.Controllers
             }
             catch (Exception)
             {
-                throw;
+                    throw;
             }
-            }
+
+        }
 
 
         [HttpDelete("api/TourBookingDetails/DeleteTourbook/{id}")]
@@ -146,6 +164,7 @@ namespace TourBooking_WebApi.Controllers
                 return 1;
             }
         }
+
         [HttpGet("api/TourBookingDetails/Countries")]
         public async Task<ActionResult<IEnumerable<Country>>> GetCountries()
         {
@@ -167,32 +186,13 @@ namespace TourBooking_WebApi.Controllers
         {
             try
             {
-                var Details = _db.TourBookings.Find(id);
+                //var Details = _db.TourBookings.Find(id);
+
                 var Country = (from country in _db.Countries
-                             where country.CountryId == Details.CountryId
-                             select new { CountryName = country.CountryName }).First();
-
-                //var CountryCity = (from country in _db.Countries
-                //                   join city in _db.Cities on country.CountryId equals city.CountryId
-                //                   where country.CountryId == Details.CountryId
-                //                   select new
-                //                   {
-                //                       CountryName = country.CountryName,
-                //                       CityName = city.CityName
-                //                   }).FirstOrDefault();
+                               where country.CountryId == id
+                               select new { CountryName = country.CountryName }).First();
 
 
-                //if (CountryCity != null)
-                //{
-                //    string countryName = CountryCity.CountryName;
-                //    string cityName = CountryCity.CityName;
-
-                //}
-                //else
-                //{
-                //    // Handle the case where the country or city information is not found
-                //}
-                // return Ok(CountryCity);
                 return Ok(Country);
             }
             catch (Exception)
@@ -200,46 +200,31 @@ namespace TourBooking_WebApi.Controllers
 
                 throw;
             }
+
+
+
         }
         [HttpGet("api/TourBookingDetails/citydropdown/{id}")]
         public async Task<ActionResult<City>> citydropdown(int id)
         {
-            var Details = _db.TourBookings.Find(id);
-            var City = (from city in _db.Cities
-                        where city.CountryId == Details.CountryId
-                        select new { CityName = city.CityName }).FirstOrDefault();
-
-            return Ok(City);
-
-        }
-
-
-
-        [HttpGet("api/TourBookingDetails/ExistingCity/{id:int}")]
-        public async Task<ActionResult<string>> GetexistingCity(int id)
-        {
+            // var Details = _db.TourBookings.Find(id);
             try
             {
-                var existingcityName = await _tourRepositary.Getexistingcity(id)
-       ;
-                return Ok(existingcityName);
+                var City = (from city in _db.Cities
+                            where city.CityId == id
+                            select new { CityName = city.CityName }).FirstOrDefault();
+
+                return Ok(City);
+
+
             }
             catch (Exception)
             {
+
                 throw;
             }
+           
         }
-
-
-
-
-
-
-
-
-
-
-
 
 
         [HttpGet("api/TourBookingDetails/Cities/{CountryId:int}")]
@@ -256,5 +241,45 @@ namespace TourBooking_WebApi.Controllers
             }
         }
 
+
+
+
+        [HttpGet("api/TourBookingDetails/ExistingCity/{id:int}")]
+        public async Task<ActionResult<string>> GetexistingCity(int id)
+        {
+            try
+            {
+                var existingcityName = await _tourRepositary.Getexistingcity(id);
+                return Ok(existingcityName);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet("api/TourBookingDetails/Existingcountry/{id:int}")]
+        public async Task<ActionResult<string>> Getexisitingcountry(int id)
+        {
+            try
+            {
+                var exitcoun = await _tourRepositary.GetexistingCountry(id);
+                return Ok(exitcoun);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
+        }
+
     }
 }
+
+       
+    
+
+
+    
+
+

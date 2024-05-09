@@ -60,42 +60,40 @@
         </div>
 
         <div class="item col-sm-12">
+            
             <div class="country-item">
-                <p>Country:</p>
+                <p>Country<span class="required">*</span></p>
                 <select name="countryDropdown" id="country" class="form-control">
 
-                    <span id="countryError" class="invalid-feedback"></span>
-                    <span id="CountryErrorIcon" class="material-icons material-icons-outlined Iconcolor">error_outline</span>
-
-                    <option value="">Select country</option>
+                    
+                    <option value="">Select a country</option>
                     @{
-                        var countries = ViewBag.ListCountry as List<Country>;
-                        if (countries != null)
-                        {
-                            foreach (var country in countries)
-                            {
-                                <option value="@country.CountryId">@country.CountryName</option>
-                            }
-                        }
+                        
                     }
                 </select>
             </div>
+            <span id="countryError" class="invalid-feedback"></span>
+            <span id="countryErrorIcon" class="material-icons material-icons-outlined Iconcolor">error_outline</span>
         </div>
 
         <div class="item col-sm-12">
-            <span id="CityError" class="invalid-feedback"></span>
+           
             <div class="city-item">
-                <p>City:</p>
+                <p>City<span class="required">*</span></p>
                 <select id="CityDropdown" class="form-control">
+                   
                     <option value="">Select a city</option>
                 </select>
-                </<div>
+                <div>
+                    <span id="cityError" class="invalid-feedback"></span>
+                    <span id="cityErrorIcon" class="material-icons material-icons-outlined Iconcolor">error_outline</span>
+
                 </div>
                 <br />
 
                 <div class="item">
 
-                    <p>When are you planning to visit?</p>
+                    <p>When are you planning to visit?<span class="required">*</span></p>
                     <input type="date" name="bdate" id="Date" required />
                     <span id="dateerror" class="invalid-feedback"></span>
                     <span id="dateerroricon" class="material-icons material-icons-outlined Iconcolor">error_outline</span>
@@ -155,6 +153,8 @@
                             <label for="radio_6" class="radio"><span>6-10 PM</span></label>
                         </div>
                         <div id="statuserrorradio"></div>
+                        <span id="serroricon" class="material-icons material-icons-outlined Iconcolor">error_outline</span>
+
                     </div>
                 </div>
 
@@ -176,6 +176,8 @@
                     </div>
 
                 </div>
+
+                <div id="base" data-base="@ViewBag.hostname"></div>
 
                 <script src="~/js/book.js"></script>
 </body>

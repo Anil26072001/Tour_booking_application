@@ -12,7 +12,10 @@ namespace TourBooking_Web.Controllers
         {
             _logger = logger;
         }
-
+        public IActionResult Home()
+        {
+            return View();
+        }
         public IActionResult Index()
         {
             return View();

@@ -20,3 +20,37 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+
+
+/*
+body {
+    background-color: lightpink;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+*/
+
+.display-4{
+    color:aqua
+
+}
+.colour{
+    color:aquamarine
+}
+
+.img1 {
+    position: absolute;
+    bottom: 200px;
+    height: 400px;
+    left: 500px;
+}
