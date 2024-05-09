@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     var radio;
+    var CheckExpression = true;
     var id = parseInt($("#tourbookId").val());
     console.log(id);
     $.ajax({
@@ -14,6 +15,8 @@
             $('#cityid').val(Response.cityId);
 
             $('#countryId').val(Response.countryId);
+
+
             cityID = Response.cityId;
             console.log(cityID);
 
@@ -63,24 +66,166 @@
             console.error(xhr.responseText);
         }
     });
+
+
+    //countryId = Response.CountryId;
+    //console.log(countryId);
+
+    //var CountryContainer = $('#countrySelect');
+    //$.ajax({
+    //    url: 'https://localhost:7110/api/TourBookingDetails/Existingcountry/' + id,
+    //    type: "GET",
+    //    success: function (data) {
+    //        console.log(data);
+    //        let countrydetails = '';
+    //        countrydetails += '<option value="' + countryId + '">' + data + '</option>';
+    //        CountryContainer.html(countrydetails);
+    //    },
+    //    error: function (xhr, status, error) {
+    //        console.error(xhr.responseText);
+    //        console.error(status);
+    //        console.error(error);
+    //        alert('An error occurred while processing your request.');
+    //    }
+    //})
+
+    //$.ajax({
+    //    url: 'https://localhost:7110/api/TourBookingDetails/Countries',
+
+    //    type: 'GET',
+    //    success: function (response) {
+    //        console.log(response);
+
+    //        $('#countrySelect').empty();
+    //        $.each(response, function (i, country) {
+    //            $('#countrySelect').append($("<option></option>").val(country.countryId).html(country.countryName));
+    //        });
+
+    //    },
+    //    error: function (xhr, status, error) {
+    //        console.error(xhr.responseText);
+    //    }
+
+    //});
+
+
+
+
+
+
+
+
     $.ajax({
-        url: 'https://localhost:7110/api/TourBookingDetails/Countries',
+        url: 'https://localhost:7110/api/TourBookingDetails/Existingcountry/' + id,
+        type: "GET",
+        success: function (data) {
+            console.log(data);
+            var CountryContainer = $('#countrySelect');
+            var countrydetails = '<option value="' + id + '">' + data + '</option>';
+            CountryContainer.html(countrydetails);
 
-        type: 'GET',
-        success: function (response) {
-            console.log(response);
-
-            $('#countrySelect').empty();
-            $.each(response, function (i, country) {
-                $('#countrySelect').append($("<option></option>").val(country.countryId).html(country.countryName));
+            // Fetch all countries and append them to the dropdown
+            $.ajax({
+                url: 'https://localhost:7110/api/TourBookingDetails/Countries',
+                type: 'GET',
+                success: function (response) {
+                    console.log(response);
+                    $.each(response, function (i, country) {
+                        if (country.countryId !== id) {
+                            CountryContainer.append($("<option></option>").val(country.countryId).html(country.countryName));
+                        }
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
             });
-
         },
         error: function (xhr, status, error) {
             console.error(xhr.responseText);
+            console.error(status);
+            console.error(error);
+            alert('An error occurred while processing your request.');
         }
-
     });
+
+
+
+
+    //$.ajax({
+    //    url: 'https://localhost:7110/api/TourBookingDetails/Existingcountry/' + id,
+    //    type: "GET",
+    //    success: function (countryName) {
+    //        console.log(countryName);
+    //        var CountryContainer = $('#countrySelect');
+    //        var countrydetails = '<option value="' + id + '">' + countryName + '</option>';
+    //        CountryContainer.html(countrydetails);
+
+    //        // Fetch all countries and append them to the dropdown
+    //        $.ajax({
+    //            url: 'https://localhost:7110/api/TourBookingDetails/Countries',
+    //            type: 'GET',
+    //            success: function (response) {
+    //                console.log(response);
+    //                $.each(response, function (i, country) {
+    //                    if (country.countryId !== id) {
+    //                        CountryContainer.append($("<option></option>").val(country.countryId).html(country.countryName));
+    //                    }
+    //                });
+    //            },
+    //            error: function (xhr, status, error) {
+    //                console.error(xhr.responseText);
+    //            }
+    //        });
+
+    //        // Fetch existing city and populate the city input field
+    //        $.ajax({
+    //            url: 'https://localhost:7110/api/TourBookingDetails/ExistingCity/' + id,
+    //            type: "GET",
+    //            success: function (cityName) {
+    //                console.log(cityName);
+    //                $('#cityInput').val(cityName); // Assuming you have an input field with id="cityInput"
+    //            },
+    //            error: function (xhr, status, error) {
+    //                console.error(xhr.responseText);
+    //                console.error(status);
+    //                console.error(error);
+    //                alert('An error occurred while fetching the existing city.');
+    //            }
+    //        });
+    //    },
+    //    error: function (xhr, status, error) {
+    //        console.error(xhr.responseText);
+    //        console.error(status);
+    //        console.error(error);
+    //        alert('An error occurred while processing your request.');
+    //    }
+    //});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     $("#countrySelect").on("change", function () {
         var countryId = $("#countrySelect").val();
@@ -153,14 +298,17 @@
         radiobuttonstatus: "#radiobuttonstatus"
 
     };
+    /*!/^[a-zA-Z]{1}[a-zA-Z\s]+$/*/
     $(TourbookVariable.FirstName).on('input', function () {
         var name = $(TourbookVariable.FirstName).val();
-        if (!/^[a-zA-Z]{1}[a-zA-Z\s]+$/.test(name)) {
+        if (!/^[a-zA-Z][a-zA-Z\s]+$/.test(name)) {
             $(TourbookVariable.FirstnameError).text("FirstName should only contain letters").show();
             $(TourbookVariable.firstnameErrorIcons).show();
+            CheckExpression = false;
         } else {
             $(TourbookVariable.FirstnameError).hide();
             $(TourbookVariable.firstnameErrorIcons).hide();
+            CheckExpression = true;
         }
     });
     $(TourbookVariable.LastName).on('input', function () {
@@ -168,16 +316,20 @@
         if (!/^[a-zA-Z]{1}[a-zA-Z\s]+$/.test(lastname)) {
             $(TourbookVariable.LastnameError).text("Last Name should only contain letters").show();
             $(TourbookVariable.lastnameErrorIcons).show();
+            CheckExpression = false;
         } else {
             $(TourbookVariable.LastnameError).hide();
             $(TourbookVariable.lastnameErrorIcons).hide();
+            CheckExpression = true;
         }
     });
-       $(TourbookVariable.Email).on('input', function () {
+    $(TourbookVariable.Email).on('input', function () {
         var email = $(this).val();
         if (!/^[a-z]{1}[a-z0-9]+@gmail.com$/.test(email)) {
             $(TourbookVariable.EmailError).text('Enter a valid email address').show();
             $(TourbookVariable.EmailErrorIcons).show();
+            CheckExpression = false;
+
         } else {
             $(TourbookVariable.EmailError).hide();
             $(TourbookVariable.EmailErrorIcons).hide();
@@ -185,17 +337,19 @@
                 $(this).removeClass('is-invalid').addClass('is-valid');
             } else {
                 $(this).removeClass('is-valid is-invalid');
+                CheckExpression = true;
             }
+            
         }
        });
     $(TourbookVariable.PhoneNumber).on('input', function () {
         var phoneNumber = $(this).val();
-        // Regular expression pattern for phone numbers
         var phonePattern = /^(?:\+?91|0)?[6789]\d{9}$/;
-        ;
+        
         if (!phonePattern.test(phoneNumber)) {
             $(TourbookVariable.PhoneNumberError).text('Enter a valid phone number').show();
             $(TourbookVariable.PhoneNumberErrorIcon).show();
+            CheckExpression = false;
 
         } else {
             $(TourbookVariable.PhoneNumberError).hide();
@@ -204,6 +358,7 @@
                 $(this).removeClass('is-invalid').addClass('is-valid');
             } else {
                 $(this).removeClass('is-valid is-invalid');
+                CheckExpression = true;
             }
         }
     });
@@ -213,9 +368,12 @@
         if (!integerPattern.test(inputValue)) {
             $(TourbookVariable.HowmanypeopleError).text("Plese choose one").show();
             $(TourbookVariable.HowmanypeopleError).show();
+            CheckExpression = false;
         } else {
             $(TourbookVariable.HowmanypeopleError).hide();
             $(TourbookVariable.HowmanypeopleErroricon).hide();
+            CheckExpression = true;
+
         }
     });
     $(TourbookVariable.TimeofIncident).on('input', function () {
@@ -224,10 +382,12 @@
         if (isNaN(parsedDate) || parsedDate.toString() === 'Invalid Date') {
             $(TourbookVariable.dateerror).text('Please enter a valid date').show();
             $(TourbookVariable.dateerroricon).show();
+            CheckExpression = false;
         } else {
 
             $(TourbookVariable.dateerror).hide();
             $(TourbookVariable.dateerroricon).hide();
+            CheckExpression = true;
         }
     });
     $(TourbookVariable.Whichtoursorevents).on('input', function () {
@@ -235,9 +395,11 @@
         if (inputValue.trim() === '') {
             $(TourbookVariable.Whichtoursoreventserror).text('Please enter which tours or events you are interested in').show();
             $(TourbookVariable.WhichtoursoreventserrorIcon).show();
+            CheckExpression = false;
         } else {
             $(TourbookVariable.Whichtoursoreventserror).hide();
             $(TourbookVariable.WhichtoursoreventserrorIcon).hide();
+            CheckExpression = true;
         }
     });
 
@@ -320,9 +482,6 @@
             $(TourbookVariable.firstnameErrorIcons).show();
             IsValid = false;
         }
-        else {
-
-        }
         if (details.LastName == '') {
             $(TourbookVariable.LastnameError).text('Please Enter LastName').show();
             $(TourbookVariable.LastnameErrorIcons).show();
@@ -365,7 +524,7 @@
 
 
 
-        if (IsValid) {
+        if (IsValid && CheckExpression) {
 
             $.ajax({
                 url: 'https://localhost:7110/api/TourBookingDetails/PutTourBook/' + id,
@@ -373,6 +532,14 @@
                 data: details,
                 success: function (result) {
                     alert(" form Successfully updated");
+
+
+                    //Swal.fire({
+                    //    title: "form Successfully updated!",
+                    //    text: "You clicked the button!",
+                    //    icon: "success"
+                    //});
+
                     window.location.href = '/Tourcontroller1/TourbookingList';
                 },
                 error: function (xhr, status, error) {

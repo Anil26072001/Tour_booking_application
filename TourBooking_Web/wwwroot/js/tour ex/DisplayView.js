@@ -37,10 +37,7 @@ $(document).ready(function () {
 
 
             $('#howDidYouHear').val(Response.howDidYouHear);
-           /* $('#country').val(Response.countryId);*/
 
-
-            /*$('#bestwaytocontact').val(Response.bestwaytocontact);*/
 
             if (Response.bestwaytocontact === "Phone") {
                 $("#phonecheckbox").prop('checked', true);
@@ -61,7 +58,7 @@ $(document).ready(function () {
             else if (Response.besttimeofday === "12-4 Pm ") {
                 $("#twlradio").prop('checked', true);
             }
-            else /*(Response.bestwaytocontact === "6-10 PM")*/ { 
+            else /*(Response.bestwaytocontact === "6-10 PM")*/ {
                 $("#sixradio").prop('checked', true);
             }
 
@@ -75,17 +72,17 @@ $(document).ready(function () {
                     var countryDropdown = $('#country');
                     console.log(countryDropdown);
                     console.log(Countries);
-                   
+
                     console.log(Countries.countryName);
-                    
+
                     countryDropdown.empty();
+                    let Countrydetails = '';
 
-                    countryDropdown.append($('<option>', {
-                        value: '',
-                        text: Countries.countryName
-                    }));
+                    Countrydetails += '<option value="' + Countries.countryid + '">' + Countries.countryName + '</option>';
 
-                    countryDropdown.val(Countries.countryName);
+                    countryDropdown.html(Countrydetails);
+
+                   
 
                     var cityid = Response.cityId;
                     console.log(cityid);
@@ -101,7 +98,7 @@ $(document).ready(function () {
                             //    text: city.cityname
                             //}));
 
-                            
+
 
                             let citydetails = '';
 
@@ -133,3 +130,92 @@ $(document).ready(function () {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//$(document).ready(function () {
+//    var id = parseInt($("#tourbookId").val(), 0);
+//    $.ajax({
+//        url: `https://localhost:7110/api/TourBookingDetails/GetDetailsbyId/` + id,
+//        type: 'Get',
+//        success: function (Response) {
+//            $('#FirstName').val(Response.firstName);
+//            $('#lastname').val(Response.lastName);
+//            $('#email').val(Response.email);
+//            $('#Phone').val(Response.phone);
+//            $('#Date').val(Response.timeofIncident);
+//            $('#howmanypeople').val(Response.howmanypeople);
+//            $('#whichtoursorevents').val(Response.whichtoursorevents);
+//            $('#anythingElse').val(Response.anythingElse);
+//            $('#howDidYouHear').val(Response.howDidYouHear);
+
+//            if (Response.bestwaytocontact === "Phone") {
+//                $("#phonecheckbox").prop('checked', true);
+//            } else if (Response.bestwaytocontact === "Email") {
+//                $("#emailcheckbox").prop('checked', true);
+//            } else {
+//                $("#eithercheckbox").prop('checked', true);
+//            }
+
+//            if (Response.besttimeofday === "8-11 Am ") {
+//                $("#eightradio").prop('checked', true);
+//            } else if (Response.besttimeofday === "12-4 Pm ") {
+//                $("#twlradio").prop('checked', true);
+//            } else {
+//                $("#sixradio").prop('checked', true);
+//            }
+
+//            var countryid = Response.countryId;
+//            $.ajax({
+//                url: 'https://localhost:7110/api/TourBookingDetails/Existingcountry/' + countryid,
+//                type: 'GET',
+//                success: function (Countries) {
+//                    var countryDropdown = $('#country');
+//                    countryDropdown.empty();
+//                    countryDropdown.append($('<option>', {
+//                        value: Countries.countryId,
+//                        text: Countries.countryName
+//                    }));
+//                    countryDropdown.val(Countries.countryName);
+
+//                    var cityid = Response.cityId;
+//                    $.ajax({
+//                        url: 'https://localhost:7110/api/TourBookingDetails/citydropdown/' + cityid,
+//                        type: 'GET',
+//                        success: function (Cities) {
+//                            var cityDropdown = $('#CityId');
+//                            cityDropdown.empty();
+//                            let citydetails = '';
+//                            citydetails += '<option value="' + Cities.cityId + '">' + Cities.cityName + '</option>';
+//                            cityDropdown.html(citydetails);
+//                        },
+//                        error: function (xhr, status, error) {
+//                            console.error(xhr.responseText);
+//                        }
+//                    });
+//                },
+//                error: function (xhr, status, error) {
+//                    console.error(xhr.responseText);
+//                }
+//            });
+//        },
+//        error: function () {
+//            console.log("Error Occurred");
+//        }
+//    });
+//});

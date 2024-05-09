@@ -32,7 +32,7 @@ $(document).ready(function () {
 
                 row.append('<td>' + '<a href="/TourController1/DisplayView/' + item.tourBookingId + '" class="Viewdisplay">View</a>' + '</td>');
 
-                row.append('<td>' + '<a href="' + item.tourBookingId + '" class="updatedetails">Update</a>' + '</td>');
+                row.append('<td>' + '<a href="' + item.tourBookingId + '" class="update-details">Update</a>' + '</td>');
 
                 row.append('<td>' + '<a href="/TourBookingDetails/DeleteTourbook/' + item.tourBookingId + '"class="Delete">Delete</a>' + '</td>');
 
@@ -70,6 +70,28 @@ $(document).ready(function () {
             type: 'Delete',
             success: function (Response) {
                 console.log(Response);
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Your file has been deleted.",
+                            icon: "success"
+                        });
+                    }
+                });
+
+
+
+
                 window.location.href = '/TourController1/TourbookingList';
 
             },
@@ -88,8 +110,6 @@ $(document).ready(function () {
         // var id = parseInt($(this).attr("data-id"), 0);
         var id = parseInt($(this).attr('href'), 0);
         console.log(id);
-
-
         window.location.href = '/TourController1/Update/' + id;
     });
 
@@ -128,70 +148,6 @@ $(document).ready(function () {
 
 
 
-
-
-
-
-
-
-
-//var TourbookVariable = {
-//        FirstName: "#FirstName",
-//        FirstnameError: "#FirstnameError",
-//        firstnameErrorIcons: "#FirstnameErrorIcons",
-
-//        LastName: "#lastname",
-//        LastnameError: "#lastnameError",
-//        lastnameErrorIcons: "#LastnameErrorIcons",
-
-//        Email: "#email",
-//        EmailError: "#emailError",
-//        EmailErrorIcons: "#emailErrorIcons",
-//        PhoneNumber: "#phonenum",
-//        PhoneNumberErrorIcon: "#phoneNumberErrorIcon",
-
-//        Country: "#country",
-//        CountryError: "#countryError",
-//        CountryErrorIcon: "#CountryErrorIcon",
-
-//        City: "#city",
-//        CityDropdown: "#CityDropdown",
-
-//        TimeofIncident: "#Date",
-//        dateerror: "#dateerror",
-//        Dateerroricon: "#dateerroricon",
-
-//        Howmanypeople: "#howmanypeople",
-//        HowmanypeopleError: "#howmanypeopleError",
-//        HowmanypeopleErroricon: "#howmanypeopleErroricon",
-
-//        Whichtoursorevents: "#whichtoursorevents",
-//        Whichtoursoreventserror: "#Whichtoursoreventserror",
-//        WhichtoursoreventserrorIcon: "#Whichtoursoreventserroricon",
-
-//        PhoneNumberError: "#phoneNumberError",
-
-//        Phonecheckbox: "#phonecheckbox",
-//        Emailcheckbox: "#emailcheckbox",
-//        Eithercheckbox: "#eithercheckbox",
-
-//        Eightradio: "#eightradio",
-//        twlradio: "#twlradio",
-//        sixradio: "#sixradio",
-//        radiobuttonstatus: "#radiobuttonstatus",
-
-//        statuserror: "#statuserror",
-//        Statuserroricon: "#statuserroricon",
-
-//        besttimeofday: "#Besttimeofday",
-//        AnythingElse: "#anythingElse",
-//        HowDidYouHear: "#howDidYouHear",
-
-//        btnsubmit: "#submit",
-//        Updatesubmit: "#updatesubmit",
-//        radiobtnvalue: ""
-//        //status:"#status"
-//    };
 
 
 
