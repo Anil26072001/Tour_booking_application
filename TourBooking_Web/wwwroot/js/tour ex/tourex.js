@@ -69,20 +69,17 @@ $(document).ready(function () {
 
     });
 
-    //$(document).on('click', '.Delete', function (e) {
-    //    e.preventDefault();
-    //    var id = parseInt($(this).attr('href').split('/').pop(), 0);
-    //    console.log(id);
-    //    $.ajax({
-    //        url: `https://localhost:7110/api/TourBookingDetails/DeleteTourbook/` + id,
-    //        type: 'Delete',
-    //        success: function (Response) {
-    //            console.log(Response);
-    //            window.location.href = '/TourController1/TourbookingList';
-
-    //        },
-    //        error: function () {
-    //            console.log("Error Occured");
+    $(document).on('click', '.Delete', function (e) {
+        e.preventDefault();
+        var id = parseInt($(this).attr('href').split('/').pop(), 0);
+        console.log(id);
+       
+        $.ajax({
+            url: `https://localhost:7110/api/TourBookingDetails/DeleteTourbook/` + id,
+            type: 'Delete',
+            success: function (Response) {
+                console.log(Response);
+                window.location.href = '/TourController1/TourbookingList';
 
     //        }
 
@@ -91,8 +88,16 @@ $(document).ready(function () {
 
 
 
+    $(document).on("click", ".update-details", function (e) {
+        console.log('anil');
+        e.preventDefault();
+        // var id = parseInt($(this).attr("data-id"), 0);
+        var id = parseInt($(this).attr('href'), 0);
+        console.log(id);
 
 
+        window.location.href = '/TourController1/Update/' + id;
+    });
 
 
 
@@ -141,8 +146,6 @@ $(document).ready(function () {
         });
     });
 
-   
-
 
 
 
@@ -161,13 +164,53 @@ $(document).ready(function () {
     });
 
 
+//        LastName: "#lastname",
+//        LastnameError: "#lastnameError",
+//        lastnameErrorIcons: "#LastnameErrorIcons",
 
-});
+//        Email: "#email",
+//        EmailError: "#emailError",
+//        EmailErrorIcons: "#emailErrorIcons",
+//        PhoneNumber: "#phonenum",
+//        PhoneNumberErrorIcon: "#phoneNumberErrorIcon",
 
 
 
+//        TimeofIncident: "#Date",
+//        dateerror: "#dateerror",
+//        Dateerroricon: "#dateerroricon",
 
+//        Howmanypeople: "#howmanypeople",
+//        HowmanypeopleError: "#howmanypeopleError",
+//        HowmanypeopleErroricon: "#howmanypeopleErroricon",
 
+//        Whichtoursorevents: "#whichtoursorevents",
+//        Whichtoursoreventserror: "#Whichtoursoreventserror",
+//        WhichtoursoreventserrorIcon: "#Whichtoursoreventserroricon",
+
+//        PhoneNumberError: "#phoneNumberError",
+
+//        Phonecheckbox: "#phonecheckbox",
+//        Emailcheckbox: "#emailcheckbox",
+//        Eithercheckbox: "#eithercheckbox",
+
+//        Eightradio: "#eightradio",
+//        twlradio: "#twlradio",
+//        sixradio: "#sixradio",
+//        radiobuttonstatus: "#radiobuttonstatus",
+
+//        statuserror: "#statuserror",
+//        Statuserroricon: "#statuserroricon",
+
+//        besttimeofday: "#Besttimeofday",
+//        AnythingElse: "#anythingElse",
+//        HowDidYouHear: "#howDidYouHear",
+
+//        btnsubmit: "#submit",
+//        Updatesubmit: "#updatesubmit",
+//        radiobtnvalue: ""
+//        //status:"#status"
+//    };
 
 
 

@@ -111,6 +111,19 @@
                             alert('An error occurred while processing your request.');
                         }
                     })
+    });
+
+
+
+
+    //$.ajax({
+    //    url: 'https://localhost:7110/api/TourBookingDetails/Existingcountry/' + id,
+    //    type: "GET",
+    //    success: function (countryName) {
+    //        console.log(countryName);
+    //        var CountryContainer = $('#countrySelect');
+    //        var countrydetails = '<option value="' + id + '">' + countryName + '</option>';
+    //        CountryContainer.html(countrydetails);
 
                     $("#countrySelect").on("change", function () {
                         var countryId = $("#countrySelect").val();
